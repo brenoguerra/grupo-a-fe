@@ -1,60 +1,27 @@
 <template>
-  <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
+  <v-app id="app">
+    <!-- <p>
+      <router-link to="/">List students</router-link>
+      <router-link to="/add">Add students</router-link>
+      <router-link to="/edit">Edit student</router-link>
+    </p> -->
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
+    <AppHeader />
 
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
-
-    <v-main>
-      <HelloWorld/>
-    </v-main>
+    <router-view></router-view>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import AppHeader from './components/AppHeader'
 
 export default {
   name: 'App',
-
   components: {
-    HelloWorld,
+    AppHeader,
   },
-
-  data: () => ({
-    //
-  }),
-};
+  created() {
+    document.title = 'Grupo A - Challenge'
+  }
+}
 </script>

@@ -1,24 +1,19 @@
 <template>
   <v-app id="app">
-    <!-- <p>
-      <router-link to="/">List students</router-link>
-      <router-link to="/add">Add students</router-link>
-      <router-link to="/edit">Edit student</router-link>
-    </p> -->
-
     <AppHeader />
-
-    <router-view></router-view>
+    <AppLayout />
   </v-app>
 </template>
 
 <script>
 import AppHeader from './components/AppHeader'
+import AppLayout from './components/AppLayout'
 
 export default {
   name: 'App',
   components: {
     AppHeader,
+    AppLayout,
   },
   created() {
     document.title = 'Grupo A - Challenge'

@@ -1,11 +1,17 @@
 <template>
-  <div class="container">
-    <div class="title">
+  <div class="container d-flex flex-column">
+    <div class="
+      title 
+      d-flex 
+      flex-column 
+      align-center 
+      justify-center 
+      rounded-tl-xl">
       <h2>{{ title }}</h2>
     </div>
 
     <div class="render">
-      <router-view></router-view>
+      <slot />
     </div>
   </div>
 </template>
@@ -20,32 +26,28 @@ export default {
 
 <style scoped>
 .container {
-  border-top: 1px solid #BDBDBD;
   border-bottom: 1px solid #BDBDBD;
   height: calc(90vh - 118px);
-  width: 100%;
-  display: flex;
-  flex-direction: column;
+  width: calc(100vw - 264px);
 }
 .title {
   height: 32px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
   background: #90CAF9;
-  padding: 4px;
+}
+@media only screen and (max-width: 960px) {
+  .container {
+    width: calc(100vw - 16px);
+  }
+  .title {
+    width: 100vw;
+  }
 }
 h2 {
-  border-radius: 8px 0 0 0;
   font-size: 18px;
-  color: #000;
   font-weight: normal;
 }
 .render {
   width: 100%;
   height: 100%;
-  padding: 16px 32px;
 }
 </style>

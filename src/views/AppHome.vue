@@ -1,11 +1,94 @@
 <template>
   <div>
-    <h1>Home</h1>
+    <AppContent title="Consulta de alunos">
+      <AppForm>
+        <AppInput
+          id="search"
+          label="Digite sua busca"
+          placeholder=""
+          @change="changeInputValue"
+          :typedEnter="handleSearch"
+          v-model="inputSearch"
+        />
+
+        <AppButton :onClick="handleSearch">
+          <v-icon dense>mdi-magnify</v-icon>{{ searchButtonText }}
+        </AppButton>
+        
+        <AppButton :onClick="goToCreateStudentPage">
+          <v-icon dense>mdi-account-plus</v-icon> {{ addStudentButtonText }}
+        </AppButton>
+      </AppForm>
+
+      <AppTable :students="getFilteredStudents" :deleteStudent="deleteStudent" />
+    </AppContent>
   </div>
 </template>
 
 <script>
-export default {}
+import AppContent from '../components/AppContent'
+import AppTable from '../components/AppTable'
+import AppButton from '../components/AppButton'
+import AppInput from '../components/AppInput'
+import { mapGetters, mapActions } from 'vuex'
+import AppForm from '../components/AppForm'
+
+export default {
+  components: {
+    AppContent,
+    AppTable,
+    AppButton,
+    AppInput,
+    AppForm
+},
+  data () {
+    return {
+      students: [],
+      studentsFilter: [],
+      inputSearch: ''
+    }
+  },
+  mounted() {
+    this.fetchStudents()
+  },
+  methods: {
+    ...mapActions(['fetchStudents', 'filterStudents', 'deleteStudent']),
+    handleSearch() {
+      console.log('search', this.inputSearch);
+      this.filterStudents(this.inputSearch)
+    },
+    goToCreateStudentPage() {
+      this.$router.push({ path: '/add' })
+    },
+     changeInputValue(value) {
+      this.inputSearch = value
+      this.$emit('name', value)
+    }
+  },
+  computed: {
+    ...mapGetters(['getFilteredStudents']),
+    searchButtonText() { 
+      let text = 'Pesquisar';
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs': return text = ''
+        case 'sm': return text = ''
+      }
+      return text
+    },
+    addStudentButtonText() {
+      let text = 'Cadastrar Aluno';
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs': return text = ''
+        case 'sm': return text = ''
+      }
+      return text
+    },
+  },
+}
 </script>
 
-<style scoped></style>
+<style scoped>
+button {
+  margin: 0 8px;
+}
+</style>

@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header class="d-flex align-center justify-center">
     <img src="../assets/logo.svg" :width="width" alt="Grupo A">
   </header>
 </template>
@@ -22,11 +22,10 @@ export default {
 
 <style scoped>
 header {
-  width: 100%;
   height: 118px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+}
+img {
+  cursor: pointer;
 }
 @media only screen and (min-width: 960px) {
   header {

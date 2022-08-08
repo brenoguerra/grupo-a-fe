@@ -1,11 +1,6 @@
 <template>
   <div>
-    <!-- <AppToast
-      type="error"
-      :text="toastMessage"
-      :visible="isToastVisible"
-      :handleClose="handleCloseToast"
-    /> -->
+    <AppToast ref="toast" />
 
     <v-dialog
       v-model="dialog"
@@ -74,9 +69,9 @@
             >
               <td>{{ student.ra }}</td>
               <td>{{ student.name }}</td>
-              <td>{{ student.cpf }}</td>
+              <td>{{ formatCpf(student.cpf) }}</td>
               <td>
-                <v-icon dense @click.prevent="click">mdi-pen</v-icon>
+                <v-icon dense @click.prevent="handleEdit(student.id)">mdi-pen</v-icon>
                 <v-icon dense @click.prevent="handleDelete(student.id)">mdi-delete</v-icon>
               </td>
             </tr>
@@ -88,26 +83,28 @@
 </template>
 
 <script>
-// import AppToast from './AppToast'
+import AppToast from './AppToast'
+import Utils from '../mixins/UtilMixin'
 
 export default {
   components: {
-    // AppToast
+    AppToast
   },
   data() {
     return {
       dialog: false,
       studentId: null,
-      isToastVisible: false,
-      toastType: '',
-      toastMessage: '',
     }
   },
+  mixins: [Utils],
   props: {
     students: Array,
     deleteStudent: Function
   },
   methods: {
+    handleEdit(id) {
+      this.$router.push({ path: `/student/${id}` })
+    },
     handleDelete(id) {
       this.studentId = id
       this.dialog = true
@@ -115,14 +112,16 @@ export default {
     handleDeleteConfirm() {
       this.$props.deleteStudent(this.studentId)
         .then(() => {
-          this.toastType = 'success'
-          this.toastMessage = 'Aluno deletado com sucesso!'
+          this.$refs.toast.show({
+            message: 'Aluno deletado com sucesso!',
+            type: 'success'
+          })
         })
         .catch(() => {
-          this.$toast = 'Default toast'
-        })
-        .finally(() => {
-          this.isToastVisible = true
+          this.$refs.toast.show({
+            message: 'Houve um erro ao deletar o aluno',
+            type: 'error'
+          })
         })
       this.dialog = false
     },
@@ -130,9 +129,6 @@ export default {
       this.studentId = null
       this.dialog = false
     },
-    handleCloseToast() {
-      this.isToastVisible = false
-    }
   }
 }
 </script>

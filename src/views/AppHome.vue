@@ -2,13 +2,14 @@
   <div>
     <AppContent title="Consulta de alunos">
       <AppForm>
-        <AppInput
+        <v-text-field
           id="search"
           label="Digite sua busca"
           placeholder=""
-          @change="changeInputValue"
-          :typedEnter="handleSearch"
           v-model="inputSearch"
+          outlined
+          dense
+          @keydown.enter.prevent="handleSearch"
         />
 
         <AppButton :onClick="handleSearch">
@@ -29,7 +30,6 @@
 import AppContent from '../components/AppContent'
 import AppTable from '../components/AppTable'
 import AppButton from '../components/AppButton'
-import AppInput from '../components/AppInput'
 import { mapGetters, mapActions } from 'vuex'
 import AppForm from '../components/AppForm'
 
@@ -38,8 +38,7 @@ export default {
     AppContent,
     AppTable,
     AppButton,
-    AppInput,
-    AppForm
+    AppForm,
 },
   data () {
     return {
@@ -54,16 +53,11 @@ export default {
   methods: {
     ...mapActions(['fetchStudents', 'filterStudents', 'deleteStudent']),
     handleSearch() {
-      console.log('search', this.inputSearch);
       this.filterStudents(this.inputSearch)
     },
     goToCreateStudentPage() {
-      this.$router.push({ path: '/add' })
+      this.$router.push({ path: '/student' })
     },
-     changeInputValue(value) {
-      this.inputSearch = value
-      this.$emit('name', value)
-    }
   },
   computed: {
     ...mapGetters(['getFilteredStudents']),

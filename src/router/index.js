@@ -1,9 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import CreateStudent from '../views/AppCreateStudent'
 import Home from '../views/AppHome'
-import UpdateStudent from '../views/AppUpdateStudent'
+import AppStudent from '../views/AppStudent'
 
 const NotFound = { template: '<p>404 - Not found</p>' }
 
@@ -15,12 +14,12 @@ const routes = [
     component: Home,
   },
   {
-    path: '/add',
-    component: CreateStudent,
+    path: '/student',
+    component: AppStudent,
   },
   {
-    path: '/edit',
-    component: UpdateStudent,
+    path: '/student/:id',
+    component: AppStudent,
   },
   {
     path: '*',

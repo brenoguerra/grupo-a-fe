@@ -151,8 +151,8 @@ export default {
 .input-number > input[type="number"] {
   -moz-appearance: textfield;
 }
-.input-number >>> input::-webkit-outer-spin-button,
-.input-number >>> input::-webkit-inner-spin-button {
+.input-number:deep(input::-webkit-outer-spin-button),
+.input-number:deep(input::-webkit-inner-spin-button) {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;

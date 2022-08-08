@@ -16,7 +16,7 @@ export default new Vuex.Store({
   actions: {
     makeRequest: async (context, { method, body, params }) => {
       try {
-        const ax = axios.create({ baseURL: process.env.API_URL })
+        const ax = axios.create({ baseURL: `${process.env.VUE_APP_API_URL}/students` })
         const response = await ax({
           method,
           data: body,
